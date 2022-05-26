@@ -1,11 +1,38 @@
 import 'package:flutter/material.dart';
 
-class Contador extends StatelessWidget{
+class Contador extends StatefulWidget{
   const Contador({Key? key}) : super(key: key);
-  
+
+  @override
+  State<Contador> createState() => _ContadorState();
+}
+
+class _ContadorState extends State<Contador> {
+    int count = 0;
+
+    void increasefn(){
+      count++;
+      setState(() {        
+      });    
+    }
+
+    void decreasefn(){
+      count--;
+      setState(() {        
+      });
+    }
+
+    void resetfn(){
+      count=0;
+      setState(() {        
+      });
+    }
+
+
+
+
   @override
   Widget build(BuildContext context){  
-    int count = 10;
     const sizeText = TextStyle(fontSize: 24, color: Colors.red);
     const color = Color.fromARGB(255, 8, 2, 185);
     return Scaffold(
@@ -30,15 +57,35 @@ class Contador extends StatelessWidget{
             ],
           )
         ),
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.access_alarms),
-          onPressed:(){
-            count++;
-            showMessage();
-          }));
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingCustomW(increase:increasefn, decrease: decreasefn, reset: resetfn,));
   }
+}
 
-  void showMessage(){
-    print('Hi, Again');
+class FloatingCustomW extends StatelessWidget {
+  final Function increase;
+  final Function decrease;
+  final Function reset;
+
+  const FloatingCustomW({
+    Key? key,
+    required this.increase,
+    required this.decrease,
+    required this.reset,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(children: <Widget>[
+            Expanded( child: FloatingActionButton(
+            child: const Icon(Icons.add),
+            onPressed:()=> increase())),
+            FloatingActionButton(
+            child: const Icon(Icons.replay),
+            onPressed: ()=> reset() ),
+            Expanded( child:FloatingActionButton(             
+            child: const Icon(Icons.remove),
+            onPressed: ()=> decrease()))
+    ],);
   }
 }

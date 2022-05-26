@@ -10,7 +10,7 @@ class ContadorScreen extends StatefulWidget {
 
 class _ContadorScreenState extends State<ContadorScreen> {  
 
-  int count = 10;
+  int count = 0;
 
   @override
   Widget build(BuildContext context) {
